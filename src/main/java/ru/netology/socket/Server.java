@@ -8,11 +8,11 @@ public class Server {
 
     public static final int PORT = 9999;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT);
              Socket clientSocket = serverSocket.accept();
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)){
+             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
 
             System.out.println("New connection accepted");
             out.println("Write your name");
@@ -27,6 +27,8 @@ public class Server {
                 out.println(String.format("Welcome to the adult zone, %s! "
                         + "Have a good rest, or a good working day!", clientName));
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
